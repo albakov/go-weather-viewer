@@ -1,0 +1,51 @@
+{{ template "header" . }}
+<main>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Search location</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Enter the name of the city to check the weather</p>
+
+            {{ template "search-block" }}
+
+            {{ if eq .Data.HasWeatherItems true }}
+            <div class="mt-5 w-75 mx-auto">
+                <h4 class="mb-4 text-start">Results for the <u>{{ .Data.SearchedCity }}</u> query:</h4>
+
+                <ul class="list-group">
+                    <li class="list-group-item text-start d-flex justify-content-between align-items-center">
+                        <span class="d-flex align-items-center w-100">
+                            <span class="city-image">
+                                {{ if ne .Data.WeatherItem.Icon "" }}
+                                <img src="https://openweathermap.org/img/wn/{{ .Data.WeatherItem.Icon }}.png"
+                                     class="img-thumbnail p-0" alt="">
+                                {{ end }}
+                            </span>
+                            <span class="city-temperature ms-3">{{ .Data.WeatherItem.Temperature }}°</span>
+                            <span class="city-name ms-3">
+                                {{ .Data.WeatherItem.City }} [{{ .Data.WeatherItem.Latitude }}, {{ .Data.WeatherItem.Longitude }}]
+                            </span>
+                        </span>
+                        <form action="/locations" method="post">
+                            <button type="submit" class="btn btn-sm btn-outline-success ms-5" title="Add">
+                                <input type="hidden" name="name" value="{{ .Data.WeatherItem.City }}">
+                                <input type="hidden" name="latitude" value="{{ .Data.WeatherItem.Latitude }}">
+                                <input type="hidden" name="longitude" value="{{ .Data.WeatherItem.Longitude }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            {{ else }}
+            <div class="mt-5 w-75 mx-auto">
+                <h3 class="mb-4 text-start">Locations not found. Try to use another city.</h3>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</main>
+{{ template "footer" }}

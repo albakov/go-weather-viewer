@@ -1,0 +1,9 @@
+.city-name {
+    width: calc(100% - 50px - 50px);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.city-image {
+    width: 50px;
+}

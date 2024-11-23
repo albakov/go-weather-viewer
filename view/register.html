@@ -1,0 +1,41 @@
+{{ template "header" . }}
+<main>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Registration</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Please fill in the fields below to register a new account.</p>
+
+            {{ if ne .Data.Message "" }}
+            <div class="alert alert-danger">
+                {{ .Data.Message }}
+            </div>
+            {{ end }}
+
+            <form method="post" action="/registration">
+                <div class="mb-3">
+                    <input type="text" class="form-control form-control-lg" name="login"
+                           placeholder="{{ .Data.LoginPlaceholder }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" class="form-control form-control-lg" name="password"
+                           placeholder="{{ .Data.PasswordPlaceholder }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <input type="password" class="form-control form-control-lg" name="password_again"
+                           placeholder="Password again" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                </div>
+            </form>
+
+            <div class="mt-5 text-center">
+                Already have an account? <a href="/login">Log in</a>.
+            </div>
+        </div>
+    </div>
+</main>
+{{ template "footer" }}

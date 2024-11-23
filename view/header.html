@@ -1,0 +1,35 @@
+{{ define "header" }}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Viewer | {{ .PageTitle }}</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css?v=1732184397820">
+    <link rel="stylesheet" href="/css/style.css?v=1732184397820">
+</head>
+<body>
+<div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center col-md-4 mb-2 mb-md-0 text-dark text-decoration-none navbar-brand">
+            Weather Viewer
+        </a>
+
+        <div class="col-md-4 text-end">
+            {{ if eq .Header.User.Id 0 }}
+                <a href="/login" class="btn btn-outline-primary me-2">Log in</a>
+                <a href="/registration" class="btn btn-primary">Registration</a>
+            {{ else }}
+                <ul class="nav align-items-center justify-content-end">
+                    <li><a href="#" class="nav-link link-secondary">{{ .Header.User.Login }}</a></li>
+                    <li>
+                        <form action="/logout" method="post">
+                            <button type="submit" class="btn btn-dark">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            {{ end }}
+        </div>
+    </header>
+</div>
+{{ end }}

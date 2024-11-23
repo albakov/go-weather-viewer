@@ -1,0 +1,51 @@
+{{ template "header" . }}
+<main>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Weather Viewer</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Enter the name of the city to check the weather</p>
+
+            {{ template "search-block" }}
+
+            {{ if eq .Data.IsAuthenticated false }}
+                <div class="mt-5 text-center">
+                    <a href="/login">Log in</a> or <a href="/registration">registration</a>
+                    <br/>to add cities and view the weather.
+                </div>
+            {{ end }}
+
+            {{ if eq .Data.HasLocations true }}
+                <div class="mt-5 w-75 mx-auto">
+                    <h3 class="fw-bold mb-4">My locations</h3>
+
+                    <ul class="list-group">
+                        {{ range .Data.Locations }}
+                        <li class="list-group-item text-start d-flex justify-content-between align-items-center">
+                            <span class="d-flex align-items-center w-100">
+                                <span class="city-image">
+                                    {{ if ne .Icon "" }}
+                                    <img src="https://openweathermap.org/img/wn/{{ .Icon }}.png"
+                                         class="img-thumbnail p-0" alt="">
+                                    {{ end }}
+                                </span>
+                                <span class="city-temperature ms-3">{{ .Temperature }}°</span>
+                                <span class="city-name ms-3">{{ .Name }} [{{ .Latitude }}, {{ .Longitude }}]</span>
+                            </span>
+                            <form action="/locations/{{ .LocationId }}/delete" method="post">
+                                <button type="submit" class="btn btn-sm btn-warning ms-5" title="Remove">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </button>
+                            </form>
+                        </li>
+                        {{ end }}
+                    </ul>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+</main>
+{{ template "footer" }}

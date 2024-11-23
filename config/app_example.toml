@@ -1,0 +1,17 @@
+# server
+host = "localhost"
+port = 8181
+
+# mysql/mariadb
+dsn = "user:password@/database_name"
+dsn_test = "user:password@/database_name_test"
+
+# weather api key
+weather_api_url = "https://api.openweathermap.org/data/2.5/weather"
+weather_api_key = "API_KEY"
+
+# session in hours
+session_period = 2
+
+# auth form
+field_value_min_length = 6

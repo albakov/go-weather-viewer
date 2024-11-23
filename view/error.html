@@ -1,0 +1,12 @@
+{{ template "header" . }}
+<main>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">{{ .PageTitle }} | {{ .Data.Code }}</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">Enter the name of the city to check the weather</p>
+
+            {{ template "search-block" }}
+        </div>
+    </div>
+</main>
+{{ template "footer" }}
